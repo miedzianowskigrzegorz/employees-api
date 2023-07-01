@@ -3,6 +3,7 @@ package pl.gm.employeesrest.employee.response;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 public class EmployeeResponse {
@@ -12,4 +13,6 @@ public class EmployeeResponse {
     private String lastName;
     private String department;
     private BigDecimal salary;
+    private LocalDate startDate;
+
 }

@@ -4,4 +4,5 @@ export class Employee {
   lastName: string = '';
   department: string = '';
   salary: number = 0;
+  startDate: Date = new Date();
 }

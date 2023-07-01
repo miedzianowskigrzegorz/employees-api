@@ -9,6 +9,7 @@
         <th scope="col"><h4>Last Name</h4></th>
         <th scope="col"><h4>Department</h4></th>
         <th scope="col"><h4>Salary</h4></th>
+        <th scope="col"><h4>Employed since</h4></th>
         <th scope="col"><h4>Actions</h4></th>
       </tr>
       </thead>
@@ -19,6 +20,7 @@
         <td><span class="text-primary">{{ employee.lastName }}</span></td>
         <td><span class="text-primary">{{ employee.department }}</span></td>
         <td><span class="text-primary">{{ employee.salary }}</span></td>
+        <td><span class="text-primary">{{ employee.startDate }}</span></td>
         <td>
           <button class="btn btn-outline-danger" (click)="confirmDelete(employee.id)"><a>Delete</a></button>
           <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': showModal}">

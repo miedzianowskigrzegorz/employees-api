@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 public class EmployeeFormRequest {
@@ -22,5 +23,7 @@ public class EmployeeFormRequest {
     @NotNull(message = "Salary is required")
     @Positive(message = "Salary must be a positive value")
     private BigDecimal salary;
+
+    private LocalDate startDate;
 
 }

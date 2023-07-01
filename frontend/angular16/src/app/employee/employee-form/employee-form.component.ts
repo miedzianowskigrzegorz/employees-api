@@ -11,15 +11,18 @@ import { Employee } from '../model/employee';
 export class EmployeeFormComponent {
 
   employee: Employee;
+  startDate: Date;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private employeeService: EmployeeService) {
     this.employee = new Employee();
+    this.startDate = new Date();
   }
 
   onSubmit() {
+    console.log(this.employee)
     this.employeeService.saveEmployee(this.employee).subscribe(result => this.gotoEmployeeList());
   }
 
