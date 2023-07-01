@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.gm.employeesrest.employee.request.EmployeeFormRequest;
 import pl.gm.employeesrest.employee.response.EmployeeResponse;
-import pl.gm.employeesrest.employee.service.EmployeeService;
+import pl.gm.employeesrest.employee.service.EmployeeServiceImpl;
 
 import java.util.List;
 
@@ -13,28 +13,28 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private final EmployeeService employeeService;
+    private final EmployeeServiceImpl employeeServiceImpl;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public EmployeeController(EmployeeServiceImpl employeeServiceImpl) {
+        this.employeeServiceImpl = employeeServiceImpl;
     }
 
     @GetMapping
     public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
-        List<EmployeeResponse> employees = employeeService.getAllEmployees();
+        List<EmployeeResponse> employees = employeeServiceImpl.getAllEmployees();
         return ResponseEntity.ok(employees);
     }
 
     @PostMapping
     public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeFormRequest employeeFormRequest) {
-        ResponseEntity<EmployeeResponse> response = employeeService.saveEmployee(employeeFormRequest);
+        ResponseEntity<EmployeeResponse> response = employeeServiceImpl.saveEmployee(employeeFormRequest);
         return response;
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable("id") Long id) {
-        ResponseEntity<Void> response = employeeService.deleteEmployee(id);
+        ResponseEntity<Void> response = employeeServiceImpl.deleteEmployee(id);
         return response;
     }
 }

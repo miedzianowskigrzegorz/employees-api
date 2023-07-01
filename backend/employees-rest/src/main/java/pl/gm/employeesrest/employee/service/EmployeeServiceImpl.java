@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Validated
-public class EmployeeServiceImpl {
+public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final ModelMapper modelMapper;
