@@ -1,8 +1,8 @@
-<div class="card my-5">
-  <div class="card-body">
-    <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
-      <div class="form-group">
-        <label for="firstName">First Name</label>
+<div class="container">
+  <div class="bg-dark mt-5">
+    <form class="d-flex row" (ngSubmit)="onSubmit()" #employeeForm="ngForm">
+      <div>
+        <h3 class="text-primary" for="firstName">First Name</h3>
         <input type="text" [(ngModel)]="employee.firstName"
                class="form-control"
                id="firstName"
@@ -12,7 +12,7 @@
       </div>
       <div [hidden]="!firstName.pristine" class="alert alert-danger">First Name is required</div>
       <div class="form-group">
-        <label for="lastName">Last Name</label>
+        <h3 class="text-primary" for="lastName">Last Name</h3>
         <input type="text" [(ngModel)]="employee.lastName"
                class="form-control"
                id="lastName"
@@ -22,7 +22,7 @@
       </div>
       <div [hidden]="!lastName.pristine" class="alert alert-danger">Last Name is required</div>
       <div class="form-group">
-        <label for="department">Department</label>
+        <h3 class="text-primary" for="department">Department</h3>
         <input type="text" [(ngModel)]="employee.department"
                class="form-control"
                id="department"
@@ -32,7 +32,7 @@
       </div>
       <div [hidden]="!department.pristine" class="alert alert-danger">Department is required</div>
       <div class="form-group">
-        <label for="salary">Salary</label>
+        <h3 class="text-primary" for="salary">Salary</h3>
         <input type="number" [(ngModel)]="employee.salary"
                class="form-control"
                id="salary"
@@ -41,8 +41,8 @@
                required #salary="ngModel">
       </div>
       <div [hidden]="!salary.pristine" class="alert alert-danger">Salary is required</div>
-      <button type="submit" [disabled]="!employeeForm.form.valid"
-              class="btn btn-info">Submit</button>
+      <button  type="submit" [disabled]="!employeeForm.form.valid"
+               class="text-primary">Add New Employee</button>
     </form>
   </div>
 </div>

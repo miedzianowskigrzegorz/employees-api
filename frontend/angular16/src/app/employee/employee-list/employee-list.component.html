@@ -1,25 +1,26 @@
-<div class="card my-5">
-  <div class="card-body">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
+<div class="container">
+  <h2 class="mt-5">Employees</h2>
+  <div class="table-responsive">
+    <table class="table table-striped custom-table">
+      <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">FirstName</th>
-        <th scope="col">LastName</th>
-        <th scope="col">Department</th>
-        <th scope="col">Salary</th>
-        <th scope="col">Actions</th>
+        <th scope="col"><h4>#</h4></th>
+        <th scope="col"><h4>FirstName</h4></th>
+        <th scope="col"><h4>Last Name</h4></th>
+        <th scope="col"><h4>Department</h4></th>
+        <th scope="col"><h4>Salary</h4></th>
+        <th scope="col"><h4>Actions</h4></th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let employee of employees">
-        <td>{{ employee.id }}</td>
-        <td>{{ employee.firstName }}</td>
-        <td>{{ employee.lastName }}</td>
-        <td>{{ employee.department }}</td>
-        <td>{{ employee.salary }}</td>
+      <tr  *ngFor="let employee of employees">
+        <td><span class="text-primary">{{ employee.id }}</span></td>
+        <td><span class="text-primary">{{ employee.firstName }}</span></td>
+        <td><span class="text-primary">{{ employee.lastName }}</span></td>
+        <td><span class="text-primary">{{ employee.department }}</span></td>
+        <td><span class="text-primary">{{ employee.salary }}</span></td>
         <td>
-          <button class="btn btn-danger" (click)="confirmDelete(employee.id)">Delete Employee</button>
+          <button class="btn btn-outline-danger" (click)="confirmDelete(employee.id)"><a>Delete</a></button>
           <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': showModal}">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
@@ -45,3 +46,6 @@
     </table>
   </div>
 </div>
+
+
+

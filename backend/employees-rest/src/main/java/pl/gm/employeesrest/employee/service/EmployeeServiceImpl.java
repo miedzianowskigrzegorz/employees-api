@@ -19,14 +19,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Validated
-public class EmployeeService {
+public class EmployeeServiceImpl {
 
     private final EmployeeRepository employeeRepository;
     private final ModelMapper modelMapper;
     private final Validator validator;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository, ModelMapper modelMapper, Validator validator) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, ModelMapper modelMapper, Validator validator) {
         this.employeeRepository = employeeRepository;
         this.modelMapper = modelMapper;
         this.validator = validator;
