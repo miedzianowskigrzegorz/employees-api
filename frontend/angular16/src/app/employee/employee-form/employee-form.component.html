@@ -1,6 +1,6 @@
 <div class="container">
   <div class="bg-dark mt-5">
-    <form class="d-flex row" (ngSubmit)="onSubmit()" #employeeForm="ngForm">
+    <form class="d-flex row" (ngSubmit)="addEmployee()" #employeeForm="ngForm">
 
       <div class="form-group">
         <h3 class="text-primary" for="firstName">First Name</h3>
@@ -56,9 +56,10 @@
                required #startDate="ngModel">
       </div>
       <div [hidden]="!startDate.errors?.['required']" class="alert alert-danger">Start Date is required</div>
-
       <button  type="submit" [disabled]="!employeeForm.form.valid"
                class="text-primary">Add New Employee</button>
+      <button routerLink="/employees" class="text-primary">Return</button>
+
     </form>
   </div>
 </div>

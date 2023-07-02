@@ -8,13 +8,15 @@ import { EmployeeListComponent } from './employee/employee-list/employee-list.co
 import { EmployeeService } from './employee/service/employee.service';
 import { EmployeeFormComponent } from './employee/employee-form/employee-form.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { EmployeeEditComponent } from './employee/employee-edit/employee-edit.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeListComponent,
-    EmployeeFormComponent
+    EmployeeFormComponent,
+    EmployeeEditComponent
     ],
 
   imports: [

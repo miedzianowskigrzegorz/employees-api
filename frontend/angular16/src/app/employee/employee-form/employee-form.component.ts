@@ -21,7 +21,7 @@ export class EmployeeFormComponent {
     this.startDate = new Date();
   }
 
-  onSubmit() {
+  addEmployee() {
     console.log(this.employee)
     this.employeeService.saveEmployee(this.employee).subscribe(result => this.gotoEmployeeList());
   }
