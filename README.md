@@ -8,9 +8,9 @@ This is an Employee Management application that consists of a backend developed 
 - Add new employees with their details.
 - View a list of all employees with their information.
 - Delete employees from the system.
+- Update employee details.
 
   Incoiming:
-- Update employee details including their name, email, and position.
 - Search for employees by name or position.
 
 ## Technologies Used
