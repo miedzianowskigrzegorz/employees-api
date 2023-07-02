@@ -35,6 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.validator = validator;
     }
 
+    @Override
     public List<EmployeeResponse> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
         return employees.stream()
@@ -42,6 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public EmployeeResponse getEmployeeById(Long id) {
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
 
@@ -53,6 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    @Override
     public ResponseEntity<EmployeeResponse> saveEmployee(@RequestBody @Valid EmployeeFormRequest employeeFormRequest) {
         Employee employeeToSave = modelMapper.map(employeeFormRequest, Employee.class);
         Employee savedEmployee = employeeRepository.save(employeeToSave);
@@ -63,6 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .body(employeeResponse);
     }
 
+    @Override
     public ResponseEntity<EmployeeResponse> updateEmployee(@RequestBody EmployeeEditRequest employeeEditRequest) {
         if (employeeRepository.existsById(employeeEditRequest.getId())) {
 
@@ -78,6 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    @Override
     public ResponseEntity<Void> deleteEmployee(Long id) {
         if (employeeRepository.existsById(id)) {
             employeeRepository.deleteById(id);
@@ -85,5 +90,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @Override
+    public List<EmployeeResponse> findEmployeesBySearchRequest(String searchRequest) {
+        List<Employee> employees = employeeRepository.findEmployeesBySearchRequest(searchRequest);
+
+        return employees.stream()
+                .map(employee -> modelMapper.map(employee, EmployeeResponse.class))
+                .collect(Collectors.toList());
     }
 }

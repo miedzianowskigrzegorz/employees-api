@@ -12,8 +12,10 @@ import java.util.List;
 public interface EmployeeService {
 
     List<EmployeeResponse> getAllEmployees();
+    EmployeeResponse getEmployeeById(Long id);
     ResponseEntity<EmployeeResponse> saveEmployee(@RequestBody @Valid EmployeeFormRequest employeeFormRequest);
     ResponseEntity<EmployeeResponse> updateEmployee(@RequestBody EmployeeEditRequest employeeEditRequest);
     ResponseEntity<Void> deleteEmployee(Long id);
+    List<EmployeeResponse> findEmployeesBySearchRequest(String searchText);
 
 }

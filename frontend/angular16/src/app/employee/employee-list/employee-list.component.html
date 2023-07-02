@@ -1,33 +1,67 @@
 <div class="container">
-  <div class="d-flex m-5">
-    <h2 class="">Employees</h2>
-    <svg routerLink="/addEmployee" xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="m-3 bi bi-person-plus-fill" viewBox="0 0 16 16">
-      <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-      <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-    </svg>
+  <div class="d-flex m-5 justify-content-between">
+
+    <span>
+      <h2 class="">Employees</h2>
+    </span>
+
+
+    <div title="Add new employee">
+      <svg routerLink="/addEmployee" xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
+           class="m-3 bi bi-person-plus-fill" viewBox="0 0 16 16">
+        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+        <path fill-rule="evenodd"
+              d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+      </svg>
+    </div>
+
+    <div title="Refresh to all employees">
+      <svg (click)="loadEmployees()" xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
+           class="m-3 bi bi-arrow-clockwise" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+      </svg>
+    </div>
+
+    <form [formGroup]="searchForm" (ngSubmit)="searchEmployee()" class="m-3">
+      <div>
+        <div class="input-group">
+          <input formControlName="searchQuery" autocapitalize="none" autocomplete="off" autocorrect="off"
+                 name="search_query"
+                 tabindex="0" type="text" spellcheck="false" placeholder="Search employee" aria-label="Search"
+                 role="combobox"
+                 aria-haspopup="false" aria-autocomplete="list" class="form-control">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit" aria-label="Wyczyść szukane hasło">Search</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
   </div>
   <div class="table-responsive">
-    <table class="table table-striped custom-table">
+    <table class="table">
       <thead>
       <tr>
-        <th scope="col"><h4>#</h4></th>
-        <th scope="col"><h4>FirstName</h4></th>
-        <th scope="col"><h4>Last Name</h4></th>
-        <th scope="col"><h4>Department</h4></th>
-        <th scope="col"><h4>Salary</h4></th>
-        <th scope="col"><h4>Employed since</h4></th>
-        <th scope="col"><h4>Actions</h4></th>
+        <th class="border border-light"><h4>#</h4></th>
+        <th class="border border-light"><h4>FirstName</h4></th>
+        <th class="border border-light"><h4>Last Name</h4></th>
+        <th class="border border-light"><h4>Department</h4></th>
+        <th class="border border-light"><h4>Salary</h4></th>
+        <th class="border border-light"><h4>Employed since</h4></th>
+        <th class="border border-light"><h4>Actions</h4></th>
       </tr>
       </thead>
       <tbody>
-      <tr  *ngFor="let employee of employees">
-        <td><span class="text-primary">{{ employee.id }}</span></td>
+      <tr class="border border-light" *ngFor="let employee of employees">
+        <td class="border border-light"><span class="text-primary">{{ employee.id }}</span></td>
         <td><span class="text-primary">{{ employee.firstName }}</span></td>
         <td><span class="text-primary">{{ employee.lastName }}</span></td>
         <td><span class="text-primary">{{ employee.department }}</span></td>
         <td><span class="text-primary">{{ employee.salary }}</span></td>
         <td><span class="text-primary">{{ employee.startDate }}</span></td>
-        <td>
+        <td class="border border-light">
           <button [routerLink]="'/employees/' + employee.id + '/edit'" class="btn btn-outline-info"><a>Edit</a></button>
           <button class="btn btn-outline-danger" (click)="confirmDelete(employee.id)"><a>Delete</a></button>
           <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': showModal}">
@@ -43,7 +77,8 @@
                   <p>Are you sure you want to delete this employee?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Cancel</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Cancel
+                  </button>
                   <button type="button" class="btn btn-danger" (click)="deleteEmployee(employeeId)">Delete</button>
                 </div>
               </div>

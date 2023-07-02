@@ -55,4 +55,9 @@ public class EmployeeController {
         ResponseEntity<Void> response = employeeServiceImpl.deleteEmployee(id);
         return response;
     }
+
+    @GetMapping("/search/{searchRequest}")
+    public List<EmployeeResponse> searchEmployees(@PathVariable String searchRequest) {
+        return employeeServiceImpl.findEmployeesBySearchRequest(searchRequest.toLowerCase());
+    }
 }

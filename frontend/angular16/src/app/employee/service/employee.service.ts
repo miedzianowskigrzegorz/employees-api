@@ -52,4 +52,9 @@ export class EmployeeService {
     const url = `${this.employeesUrl}/${employeeId}`;
     return this.http.delete(url);
   }
+
+  public findEmployeeBySearchRequest(searchRequest: string): Observable<Employee[]> {
+      const url = `${this.employeesUrl}/search/${searchRequest}`;
+      return this.http.get<Employee[]>(url);
+    }
 }
