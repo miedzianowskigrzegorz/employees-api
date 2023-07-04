@@ -20,14 +20,15 @@ export class EmployeeEditComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.employeeId = +params['id'];
+      });
       this.loadEmployee();
-    });
   }
 
   loadEmployee() {
     this.employeeService.getEmployeeById(this.employeeId).subscribe(
       (data: Employee) => {
         this.employee = data;
+        if (this.employee) { }
       },
       (error: any) => {
         console.log('Error getting data:', error);
