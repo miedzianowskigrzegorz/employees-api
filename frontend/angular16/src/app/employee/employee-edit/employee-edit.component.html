@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="bg-dark mt-5">
+  <div *ngIf="employee" class="bg-dark mt-5">
     <form class="d-flex row" (ngSubmit)="editEmployee()" #employeeForm="ngForm">
       <div class="form-group">
         <h3 class="text-primary" for="firstName">First Name</h3>
