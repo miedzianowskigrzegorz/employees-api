@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.gm.employeesrest.employee.request.EmployeeEditRequest;
-import pl.gm.employeesrest.employee.request.EmployeeFormRequest;
+import pl.gm.employeesrest.employee.request.EmployeeCreateRequest;
 import pl.gm.employeesrest.employee.response.EmployeeResponse;
 import pl.gm.employeesrest.employee.service.EmployeeServiceImpl;
 
@@ -23,24 +23,19 @@ public class EmployeeController {
 
     @GetMapping
     public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
-        List<EmployeeResponse> employees = employeeServiceImpl.getAllEmployees();
-        return ResponseEntity.ok(employees);
+        ResponseEntity<List<EmployeeResponse>> response = employeeServiceImpl.getAllEmployees();
+        return response;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeResponse> getEmployeeById(@PathVariable("id") Long id) {
-        EmployeeResponse employee = employeeServiceImpl.getEmployeeById(id);
-
-        if (employee != null) {
-            return ResponseEntity.ok(employee);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        ResponseEntity<EmployeeResponse> response = employeeServiceImpl.getEmployeeById(id);
+        return response;
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeFormRequest employeeFormRequest) {
-        ResponseEntity<EmployeeResponse> response = employeeServiceImpl.saveEmployee(employeeFormRequest);
+    public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeCreateRequest employeeFormRequest) {
+        ResponseEntity<EmployeeResponse> response = employeeServiceImpl.createEmployee(employeeFormRequest);
         return response;
     }
 
@@ -57,7 +52,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/search/{searchRequest}")
-    public List<EmployeeResponse> searchEmployees(@PathVariable String searchRequest) {
-        return employeeServiceImpl.findEmployeesBySearchRequest(searchRequest.toLowerCase());
+    public ResponseEntity<List<EmployeeResponse>> searchEmployees(@PathVariable String searchRequest) {
+        ResponseEntity<List<EmployeeResponse>> response = employeeServiceImpl.findEmployeesBySearchRequest(searchRequest);
+        return response;
     }
 }

@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-public class EmployeeFormRequest {
+public class EmployeeCreateRequest {
 
     @NotBlank(message = "First name is required")
     private String firstName;

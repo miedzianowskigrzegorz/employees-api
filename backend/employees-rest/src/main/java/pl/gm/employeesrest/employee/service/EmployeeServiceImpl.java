@@ -1,7 +1,6 @@
 package pl.gm.employeesrest.employee.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,11 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 import pl.gm.employeesrest.employee.model.Employee;
 import pl.gm.employeesrest.employee.repository.EmployeeRepository;
 import pl.gm.employeesrest.employee.request.EmployeeEditRequest;
-import pl.gm.employeesrest.employee.request.EmployeeFormRequest;
+import pl.gm.employeesrest.employee.request.EmployeeCreateRequest;
 import pl.gm.employeesrest.employee.response.EmployeeResponse;
 
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Validated
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl implements IEmployeeQueryService,IEmployeeCommandService {
 
     private final EmployeeRepository employeeRepository;
     private final ModelMapper modelMapper;
@@ -36,27 +34,29 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeResponse> getAllEmployees() {
+    public ResponseEntity<List<EmployeeResponse>> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
-        return employees.stream()
+        List<EmployeeResponse> employeeResponses = employees.stream()
                 .map(employee -> modelMapper.map(employee, EmployeeResponse.class))
                 .collect(Collectors.toList());
+        return ResponseEntity.ok(employeeResponses);
     }
 
     @Override
-    public EmployeeResponse getEmployeeById(Long id) {
+    public ResponseEntity<EmployeeResponse> getEmployeeById(Long id) {
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
 
         if (employeeOptional.isPresent()) {
             Employee employee = employeeOptional.get();
-            return modelMapper.map(employee, EmployeeResponse.class);
+            EmployeeResponse employeeResponse = modelMapper.map(employee, EmployeeResponse.class);
+            return ResponseEntity.ok(employeeResponse);
         } else {
             throw new EntityNotFoundException("Employee with the given ID not found.");
         }
     }
 
     @Override
-    public ResponseEntity<EmployeeResponse> saveEmployee(@RequestBody @Valid EmployeeFormRequest employeeFormRequest) {
+    public ResponseEntity<EmployeeResponse> createEmployee(EmployeeCreateRequest employeeFormRequest) {
         Employee employeeToSave = modelMapper.map(employeeFormRequest, Employee.class);
         Employee savedEmployee = employeeRepository.save(employeeToSave);
         EmployeeResponse employeeResponse = modelMapper.map(savedEmployee, EmployeeResponse.class);
@@ -67,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<EmployeeResponse> updateEmployee(@RequestBody EmployeeEditRequest employeeEditRequest) {
+    public ResponseEntity<EmployeeResponse> updateEmployee(EmployeeEditRequest employeeEditRequest) {
         if (employeeRepository.existsById(employeeEditRequest.getId())) {
 
             Employee updatedEmployee = modelMapper.map(employeeEditRequest, Employee.class);
@@ -93,11 +93,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeResponse> findEmployeesBySearchRequest(String searchRequest) {
+    public ResponseEntity<List<EmployeeResponse>> findEmployeesBySearchRequest(String searchRequest) {
         List<Employee> employees = employeeRepository.findEmployeesBySearchRequest(searchRequest);
 
-        return employees.stream()
+        List<EmployeeResponse> employeeResponses = employees.stream()
                 .map(employee -> modelMapper.map(employee, EmployeeResponse.class))
                 .collect(Collectors.toList());
+
+        return ResponseEntity.ok(employeeResponses);
     }
 }
