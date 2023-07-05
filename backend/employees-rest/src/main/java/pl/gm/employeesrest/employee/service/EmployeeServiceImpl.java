@@ -11,8 +11,8 @@ import org.springframework.validation.annotation.Validated;
 import pl.gm.employeesrest.employee.model.Employee;
 import pl.gm.employeesrest.employee.repository.EmployeeRepository;
 import pl.gm.employeesrest.employee.request.EmployeeEditRequest;
-import pl.gm.employeesrest.employee.request.EmployeeCreateRequest;
 import pl.gm.employeesrest.employee.response.EmployeeResponse;
+import pl.gm.employeesrest.employee.saga.employee.EmployeeData;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,8 +56,8 @@ public class EmployeeServiceImpl implements IEmployeeQueryService,IEmployeeComma
     }
 
     @Override
-    public ResponseEntity<EmployeeResponse> createEmployee(EmployeeCreateRequest employeeFormRequest) {
-        Employee employeeToSave = modelMapper.map(employeeFormRequest, Employee.class);
+    public ResponseEntity<EmployeeResponse> createEmployee(EmployeeData data) {
+        Employee employeeToSave = modelMapper.map(data.getEmployeeRequest(), Employee.class);
         Employee savedEmployee = employeeRepository.save(employeeToSave);
         EmployeeResponse employeeResponse = modelMapper.map(savedEmployee, EmployeeResponse.class);
 

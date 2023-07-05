@@ -1,11 +1,14 @@
 package pl.gm.employeesrest.employee.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.gm.employeesrest.employee.request.EmployeeEditRequest;
 import pl.gm.employeesrest.employee.request.EmployeeCreateRequest;
 import pl.gm.employeesrest.employee.response.EmployeeResponse;
+import pl.gm.employeesrest.employee.saga.employee.EmployeeData;
+import pl.gm.employeesrest.employee.saga.employee.EmployeeSaga;
+import pl.gm.employeesrest.employee.saga.employee.step.CreateEmployeeStep;
 import pl.gm.employeesrest.employee.service.EmployeeServiceImpl;
 
 import java.util.List;
@@ -15,10 +18,11 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeServiceImpl employeeServiceImpl;
+    private final EmployeeSaga employeeSaga;
 
-    @Autowired
-    public EmployeeController(EmployeeServiceImpl employeeServiceImpl) {
+    public EmployeeController(EmployeeServiceImpl employeeServiceImpl, EmployeeSaga employeeSaga) {
         this.employeeServiceImpl = employeeServiceImpl;
+        this.employeeSaga = employeeSaga;
     }
 
     @GetMapping
@@ -34,9 +38,17 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeCreateRequest employeeFormRequest) {
-        ResponseEntity<EmployeeResponse> response = employeeServiceImpl.createEmployee(employeeFormRequest);
-        return response;
+    public ResponseEntity<String> createEmployee(@RequestBody EmployeeCreateRequest request) {
+        EmployeeData data = new EmployeeData(request);
+
+        CreateEmployeeStep createEmployeeStep = new CreateEmployeeStep(employeeServiceImpl);
+        try {
+            createEmployeeStep.execute(data);
+            return ResponseEntity.ok("Employee created successfully.");
+        } catch (Exception e) {
+            createEmployeeStep.rollback(data);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create employee.");
+        }
     }
 
     @PutMapping

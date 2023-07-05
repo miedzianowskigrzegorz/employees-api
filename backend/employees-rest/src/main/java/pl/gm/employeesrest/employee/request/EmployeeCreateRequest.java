@@ -11,6 +11,8 @@ import java.time.LocalDate;
 @Data
 public class EmployeeCreateRequest {
 
+    private Long id;
+
     @NotBlank(message = "First name is required")
     private String firstName;
 
